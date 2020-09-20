@@ -13,11 +13,9 @@ const App = () => {
   const [user, setUser] = useContext(AuthContext)
   console.log("Appです")
   return (
-    // <AuthProvider >
     <Layout>
       <Home />
     </Layout>
-    // </AuthProvider>
   );
 }
 
