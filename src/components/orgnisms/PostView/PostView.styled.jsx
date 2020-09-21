@@ -1,12 +1,20 @@
 import styled from 'styled-components'
 
 const StyledPostView = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
-    margin:10px auto;
+    p {
+        font-size: 1.6rem;
+        font-weight: bold;
+        padding: 1rem;
+        text-align: center;
+        span {
+            padding: 0 2.2rem;
+        }
+    }
+    .posts-ttl {
+        font-size: 1.8rem;
+        font-weight: bold;
+        padding: 0 1rem
+    }
 
 `
 

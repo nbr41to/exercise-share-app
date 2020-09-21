@@ -4,44 +4,31 @@ import StyledComponent from "./Home.styled"
 import NewPost from "../Modal/NewPost"
 import EditExercise from "../Modal/EditExercise"
 import EditProfile from "../Modal/EditProfile"
+import Contact from "../Modal/Contact"
 import PostView from "../../orgnisms/PostView"
 import { AuthContext } from "../../Layout"
 
 import CreateIcon from '@material-ui/icons/Create';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import PersonIcon from '@material-ui/icons/Person';
+import MailIcon from '@material-ui/icons/Mail';
 
 function Home() {
   const [openNew, setOpenNew] = useState(false);
   const [openExercise, setOpenExercise] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [openContact, setOpenContact] = useState(false);
   const [user, setUser] = useContext(AuthContext)
-  // const [users, setUsers] = useState([])
 
-  // useEffect(() => {
-  //   firebase.firestore().collection("user")
-  //     .onSnapshot((snapshot) => {
-  //       let getUsers = snapshot.docs.map((doc) => {
-  //         return doc.data();
-  //       });
-  //       setUsers(getUsers)
-  //     });
-  // }, [])
-
-  console.log(user)
-  // console.log(users)
-  // console.log(users)
-  console.log("Homeです")
-
+  // console.log(user)
   return (
     <StyledComponent>
       {openNew && <NewPost closed={setOpenNew} />}
       {openExercise && <EditExercise closed={setOpenExercise} />}
       {openProfile && <EditProfile closed={setOpenProfile} />}
+      {openContact && <Contact closed={setOpenContact} />}
       <h1 className="top-msg">今日も楽しい選択をしよう！</h1>
       <p className="user-info">{user.name}でログイン中...</p>
-      {/* <p>投稿数：</p>
-      <p>NICE：</p> */}
       <div className="user-menu">
         <button onClick={() => { setOpenNew(true) }}>
           <CreateIcon />
@@ -52,8 +39,10 @@ function Home() {
         <button onClick={() => { setOpenProfile(true) }}>
           <PersonIcon />
         </button >
+        <button onClick={() => { setOpenContact(true) }}>
+          <MailIcon />
+        </button >
       </div>
-      <h2 className="posts-ttl">Today's posts</h2>
       <PostView />
     </StyledComponent >
   );
