@@ -14,7 +14,6 @@ const Top = ({ user, setUser }) => {
         firebase.firestore().collection("user").doc("testestest").get().then((doc) => {
             setUser(doc.data())
         })
-        console.log(user)
     }
 
     return (

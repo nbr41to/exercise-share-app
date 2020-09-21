@@ -20,7 +20,7 @@ const StyledComponent = styled.div`
     }
     .modal_box {
         background-color: white;
-        width: 80%;
+        width: 90%;
         /* height: 80vh; */
         padding: 1rem;
         h2 {

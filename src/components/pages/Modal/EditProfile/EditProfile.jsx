@@ -22,12 +22,10 @@ const EditProfile = (props) => {
     if (photoUrl !== user.photo_url) {
       firebase.storage().ref(`${user.id}`).child(`${user.photo_name}`).delete()
         .then(() => {
-          console.log("過去の画像の削除に成功")
         }).catch((error) => console.log(error))
 
       firebase.storage().ref(`${user.id}`).child(`${photo.name}`).put(photo)
         .then(() => {
-          console.log('新しい画像の保存に成功');
           firebase.storage().ref(`${user.id}`).child(`${photo.name}`).getDownloadURL()
             .then((url) => {
               firebase.firestore().collection("user").doc(user.id).update({
@@ -45,7 +43,6 @@ const EditProfile = (props) => {
     props.closed(false)
   }
 
-  console.log(user)
   return (
     <StyledComponent>
       <div className="modal_box">

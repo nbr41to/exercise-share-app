@@ -3,8 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   html {
     /* selectorがbodyだとremの挙動がおかしい */
-    font-family: 'Meiryo';
-    /* font-family: Arial Black; */
+    font-family: 'Hiragino Kaku Gothic ProN';
     /* font-size:62.5%; */
     /* これで,デフォで10px */
     /* ならこれでよくね？ */

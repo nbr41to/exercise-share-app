@@ -9,6 +9,8 @@ const PostView = () => {
     const [user, setUser] = useContext(AuthContext)
     const [users, setUsers] = useState()
     const [posts, setPosts] = useState([])
+    const [totalPosts, setTotalPosts] = useState()
+    const [totalNice, setTotalNice] = useState()
 
     useEffect(() => {
         firebase.firestore().collection("user")
@@ -18,8 +20,8 @@ const PostView = () => {
                 });
                 setUsers(getUsers)
             });
-
-        firebase.firestore().collection("posts")
+        // ソートして20個だけ取得
+        firebase.firestore().collection("posts").orderBy("time", "desc").limit(20)
             .onSnapshot((snapshot) => {
                 let getPosts = snapshot.docs.map((doc) => {
                     const getPost = doc.data();
@@ -28,22 +30,40 @@ const PostView = () => {
                 });
                 setPosts(getPosts)
             });
+
+        firebase.firestore().collection("posts")
+            .onSnapshot((snapshot) => {
+                let posts = 0
+                let nice = 0
+                snapshot.docs.map((doc) => {
+                    if (doc.data().nice.includes(user.id)) {
+                        nice++
+                    }
+                    if (doc.data().user_id === user.id) {
+                        posts++
+                    }
+                });
+                setTotalPosts(posts)
+                setTotalNice(nice)
+            });
     }, [])
 
-
-
-    console.log(users)
-    console.log(posts)
+    // console.log(users)
+    // console.log(posts)
     return (
-        <div>
-            {
-                posts.sort((a, b) => {
-                    if (a.time > b.time) return -1;
-                    if (a.time < b.time) return 1;
-                    return 0;
-                }).map((post, index) => < Post users={users} post={post} index={index} />)
-            }
-        </div>
+        <StylePostView>
+            <p>投稿数：{totalPosts}<span>｜</span>NICE POINT：{totalNice}</p>
+            <h2 className="posts-ttl">Today's posts</h2>
+            <div>
+                {
+                    posts.sort((a, b) => {
+                        if (a.time > b.time) return -1;
+                        if (a.time < b.time) return 1;
+                        return 0;
+                    }).map((post, index) => < Post users={users} post={post} index={index} key={index} />)
+                }
+            </div>
+        </StylePostView>
     );
 }
 

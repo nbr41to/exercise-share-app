@@ -16,7 +16,6 @@ function NewPost(props) {
     docRef.get().then(doc => {
       if (doc.exists) {
         const data = doc.data()
-        console.log("Document data:", data.exercises);
         getExercises = data.exercises
       } else {
         console.log("No such document!");
@@ -46,7 +45,6 @@ function NewPost(props) {
     )
   }
 
-
   const onSubmit = () => {
     const d = new Date(); // Today
     const DateTimeFormat = 'YYYY/MM/DD hh:mi:ss'; // "2019/10/04 12:34:56" 
@@ -67,7 +65,6 @@ function NewPost(props) {
       }
     )
       .then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
         alert("新しい投稿が完了しました！")
         props.closed(false)
       })

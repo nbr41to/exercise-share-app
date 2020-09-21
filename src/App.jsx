@@ -7,11 +7,7 @@ import Layout, { AuthContext } from "./components/Layout"
 
 
 const App = () => {
-  const [openNew, setOpenNew] = useState(false);
-  const [openExercise, setOpenExercise] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
-  const [user, setUser] = useContext(AuthContext)
-  console.log("Appです")
+
   return (
     <Layout>
       <Home />

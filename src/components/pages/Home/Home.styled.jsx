@@ -26,18 +26,13 @@ const StyledComponent = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 2rem;
+            margin: 0 1rem;
 
             svg {
-                font-size: 4rem;
+                font-size: 3.8rem;
                 color: white;
             }
         }
-    }
-    .posts-ttl {
-        font-size: 1.8rem;
-        font-weight: bold;
-        padding: 0 1rem
     }
 `
 

@@ -16,8 +16,7 @@ function EditExercise(props) {
     docRef.get().then(doc => {
       if (doc.exists) {
         const data = doc.data()
-
-        console.log("Document data:", data.exercises);
+        // console.log("Document data:", data.exercises);
         getExercises = data.exercises
       } else {
         console.log("No such document!");
@@ -64,7 +63,6 @@ function EditExercise(props) {
   const exerciseDelete = (index) => {
     const key = index
     const newExercise = myExercise.filter((_, index) => index !== key)
-    console.log(newExercise)
     firebase.firestore().collection("user").doc(user.id).update({
       exercises: newExercise,
     })
@@ -77,7 +75,6 @@ function EditExercise(props) {
       });
   }
 
-  console.log(myExercise)
   return (
     <StyledComponent>
       <div className="modal_box">
