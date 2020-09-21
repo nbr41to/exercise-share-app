@@ -4,10 +4,7 @@ import { GlobalStyle } from "../GlobalStyle"
 import Header from "./Header"
 import Top from "./pages/Top"
 import Footer from "./Footer"
-import LoginModal from "./orgnisms/LoginModal"
-import SignupModal from "./orgnisms/SignupModal"
-import Button from "./atoms/Button"
-import top from "../images/user4.jpg"
+
 import firebase from "../firebase";
 
 export const AuthContext = React.createContext([null, () => { }]);

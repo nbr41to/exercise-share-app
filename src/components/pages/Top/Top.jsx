@@ -3,7 +3,7 @@ import firebase from '../../../firebase'
 import LoginModal from "../../orgnisms/LoginModal"
 import SignupModal from "../../orgnisms/SignupModal"
 import Button from "../../atoms/Button"
-import top_view from "../../../images/user4.jpg"
+import top_view from "../../../images/top-catch.jpg"
 import StyledComponent from "./Top.styled"
 
 const Top = ({ user, setUser }) => {
