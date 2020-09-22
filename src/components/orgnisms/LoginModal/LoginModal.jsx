@@ -11,7 +11,16 @@ const LoginModal = ({ setOpenLogin }) => {
     const [user, setUser] = useContext(AuthContext)
     const onSubmit = (e) => {
         e.preventDefault()
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+            .then(function () {
+                // Existing and future Auth states are now persisted in the current
+                // session only. Closing the window would clear any existing state even
+                // if a user forgets to sign out.
+                // ...
+                // New sign-in will be persisted with session persistence.
+                return firebase.auth().signInWithEmailAndPassword(email, password);
+            })
+            // firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
@@ -21,6 +30,22 @@ const LoginModal = ({ setOpenLogin }) => {
                     }
                 })
                 console.log(user)
+            })
+            .then(() => {
+                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                    .then(function () {
+                        // Existing and future Auth states are now persisted in the current
+                        // session only. Closing the window would clear any existing state even
+                        // if a user forgets to sign out.
+                        // ...
+                        // New sign-in will be persisted with session persistence.
+                        return firebase.auth().signInWithEmailAndPassword(email, password);
+                    })
+                    .catch(function (error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                    });
             })
             .catch(error => {
                 alert(error)

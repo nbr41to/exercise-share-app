@@ -9,13 +9,14 @@ const StyledLoginModal = styled.div`
     position: fixed;
     top: 0;
     z-index: 10;
-    background-color: #ccc;
+    background-color: rgba(200, 200, 200, 0.8);
     .modal_box {
         width: 80%;
         background-color: #fff;
         padding: 15px;
         border-radius: 15px;
         h1 {
+            font-size: 2.2rem;
             text-align: center;
         }
         form {
