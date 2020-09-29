@@ -29,3 +29,4 @@
 * autocompleteは上記で解決？
 * メールアドレス,Passwordの変更機能
 * テストログインの仕様変更（FirebaseAuth認証と結ぶ）
+* 蓄積POINTでアイテムをGETできるようにする
