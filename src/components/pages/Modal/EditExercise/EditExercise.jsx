@@ -5,7 +5,7 @@ import StyledComponent from "./EditExercise.styled"
 
 
 function EditExercise(props) {
-  const [user, setUser] = useContext(AuthContext);
+  const [user] = useContext(AuthContext);
   const [myExercise, setMyExercise] = useState([])
   const [newMenu, setNewMenu] = useState("")
 

@@ -20,3 +20,12 @@
 * StyledComponents
 * firebase
 * Material-UI
+
+## 今後のアップデート用メモ
+
+* アップデート情報一覧ページの作成
+* ランダム報酬の追加
+* Routerを用いたページ遷移
+* autocompleteは上記で解決？
+* メールアドレス,Passwordの変更機能
+* テストログインの仕様変更（FirebaseAuth認証と結ぶ）

@@ -1,27 +1,25 @@
-import React, { useState, useContext } from "react"
+import React, { useState } from "react"
 import firebase from "../../../firebase"
 import StyledLoginModal from "./LoginModal.styled"
 import InputArea from "../../molecules/InputArea"
 import Button from "../../atoms/Button"
-import { AuthContext } from "../../Layout"
 
 const LoginModal = ({ setOpenLogin }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [user, setUser] = useContext(AuthContext)
     const onSubmit = (e) => {
         e.preventDefault()
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => {
-                firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                        firebase.firestore().collection("user").doc(user.uid).get().then((doc) => {
-                            setUser(doc.data())
-                        })
-                    }
-                })
-                console.log(user)
-            })
+            // .then(() => {
+            //     firebase.auth().onAuthStateChanged((user) => {
+            //         if (user) {
+            //             firebase.firestore().collection("user").doc(user.uid).get().then((doc) => {
+            //                 setUser(doc.data())
+            //             })
+            //         }
+            //     })
+            //     // console.log(user)
+            // })
             .catch(error => {
                 alert(error)
             });

@@ -5,7 +5,7 @@ import { AuthContext } from "../../Layout"
 
 
 export default function Post({ users, post, index }) {
-    const [user, setUser] = useContext(AuthContext);
+    const [user] = useContext(AuthContext);
 
     const niceToggle = (id) => {
         const niceRef = firebase.firestore().collection("posts").doc(id)

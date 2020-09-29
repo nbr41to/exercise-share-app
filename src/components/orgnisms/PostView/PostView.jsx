@@ -6,7 +6,7 @@ import StylePostView from "./PostView.styled"
 
 
 const PostView = () => {
-    const [user, setUser] = useContext(AuthContext)
+    const [user] = useContext(AuthContext)
     const [users, setUsers] = useState()
     const [posts, setPosts] = useState([])
     const [totalPosts, setTotalPosts] = useState()

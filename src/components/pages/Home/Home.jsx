@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import StyledComponent from "./Home.styled"
 
 import NewPost from "../Modal/NewPost"
@@ -18,7 +18,7 @@ function Home() {
   const [openExercise, setOpenExercise] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openContact, setOpenContact] = useState(false);
-  const [user, setUser] = useContext(AuthContext)
+  const [user] = useContext(AuthContext)
 
   // console.log(user)
   return (

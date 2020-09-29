@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from "../../../Layout"
 import firebase from "../../../../firebase"
 import StyledComponent from "./Contact.styled"
 
 function NewPost(props) {
-  const [user, setUser] = useContext(AuthContext);
+  const [user] = useContext(AuthContext);
   const [message, setMessage] = useState("")
 
 

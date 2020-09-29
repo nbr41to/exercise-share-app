@@ -83,7 +83,7 @@ const StyledComponent = styled.div`
             justify-content: space-between;
             align-items: center;
             .time {
-                font-size: 0.8rem;
+                font-size: 1.2rem;
             }
         }
         .delete {

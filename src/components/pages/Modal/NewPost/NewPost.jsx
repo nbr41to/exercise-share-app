@@ -4,7 +4,7 @@ import firebase from "../../../../firebase"
 import StyledComponent from "./NewPost.styled"
 
 function NewPost(props) {
-  const [user, setUser] = useContext(AuthContext);
+  const [user] = useContext(AuthContext);
   const [myExercise, setMyExercise] = useState([])
   const [comment, setComment] = useState("")
   const [postExercises, setPostExercises] = useState([])

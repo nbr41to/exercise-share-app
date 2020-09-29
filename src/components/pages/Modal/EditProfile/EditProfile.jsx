@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import firebase from "../../../../firebase"
 import { AuthContext } from "../../../Layout"
 import StyledComponent from "./EditProfile.styled"
 
 
 const EditProfile = (props) => {
-  const [user, setUser] = useContext(AuthContext);
+  const [user] = useContext(AuthContext);
   const [name, setName] = useState(user.name)
   const [photo, setPhoto] = useState()
   const [photoUrl, setPhotoUrl] = useState(user.photo_url) // 表示用

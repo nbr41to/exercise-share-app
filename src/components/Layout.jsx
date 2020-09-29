@@ -11,8 +11,6 @@ export const AuthContext = React.createContext([null, () => { }]);
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [openLogin, setOpenLogin] = useState(false)
-  const [openSignup, setOpenSignup] = useState(false)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {

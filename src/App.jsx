@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 // import AuthProvider, { AuthContext } from './Auth'
 import "./reset.css"
 import Home from "./components/pages/Home"
-import Layout, { AuthContext } from "./components/Layout"
+import Layout from "./components/Layout"
 
 
 
