@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { GlobalStyle } from "../GlobalStyle"
 // import { AuthProvider, AuthContext } from "../Auth";
 import Header from "./Header"
@@ -13,6 +13,16 @@ const Layout = ({ children }) => {
   const [user, setUser] = useState(null)
   const [openLogin, setOpenLogin] = useState(false)
   const [openSignup, setOpenSignup] = useState(false)
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase.firestore().collection("user").doc(user.uid).get().then((doc) => {
+          setUser(doc.data())
+        })
+      }
+    })
+  }, [])
 
   const signout = () => {
     firebase.auth().signOut().then(() => {

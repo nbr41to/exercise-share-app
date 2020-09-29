@@ -38,6 +38,7 @@ const LoginModal = ({ setOpenLogin }) => {
                         name="email"
                         placeholder="E-mail"
                         label="email"
+                        autoComplete="on"
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <InputArea
@@ -47,6 +48,7 @@ const LoginModal = ({ setOpenLogin }) => {
                         name="password"
                         placeholder="Password"
                         label="password"
+                        autoComplete="on"
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <Button value="ログイン" color="limegreen" type="submit" />
