@@ -11,9 +11,15 @@ const Top = ({ user, setUser }) => {
     const [openSignup, setOpenSignup] = useState(false)
 
     const toriaezu = () => {
-        firebase.firestore().collection("user").doc("testestest").get().then((doc) => {
-            setUser(doc.data())
-        })
+        firebase.auth().signInAnonymously()
+            .then(() => {
+                firebase.firestore().collection("user").doc("testestest").get().then((doc) => {
+                    setUser(doc.data())
+                })
+            })
+            .catch((error) => {
+                alert(error)
+            })
     }
 
     return (
