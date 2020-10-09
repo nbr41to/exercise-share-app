@@ -52,11 +52,10 @@ const PostView = () => {
     // console.log(posts)
     return (
         <StylePostView>
-            <p>投稿数：{totalPosts}<span>｜</span>NICE POINT：{totalNice}</p>
-            <h2 className="posts-ttl">Today's posts</h2>
+            <p className="user-score">投稿数：{totalPosts}<span>｜</span>NICE POINT：{totalNice}</p>
             <div>
                 {
-                    posts.sort((a, b) => {
+                    posts?.sort((a, b) => {
                         if (a.time > b.time) return -1;
                         if (a.time < b.time) return 1;
                         return 0;

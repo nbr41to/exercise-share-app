@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
-import firebase from "../../../../firebase"
-import { AuthContext } from "../../../Layout"
+import { useHistory } from 'react-router-dom'
+import firebase from "../../../firebase"
+import { AuthContext } from "../../Layout"
 import StyledComponent from "./EditProfile.styled"
 
 
@@ -9,6 +10,7 @@ const EditProfile = (props) => {
   const [name, setName] = useState(user.name)
   const [photo, setPhoto] = useState()
   const [photoUrl, setPhotoUrl] = useState(user.photo_url) // 表示用
+  const history = useHistory()
 
   const handleImage = (e) => {
     if (e.target.files[0]) {
@@ -40,22 +42,19 @@ const EditProfile = (props) => {
         name: name,
       })
     }
-    props.closed(false)
+    history.push("/")
   }
 
   return (
     <StyledComponent>
-      <div className="modal_box">
-        <button className="close-button" onClick={() => { props.closed(false) }}>×</button>
-        <h2>My profile</h2>
-        <p>your photo</p>
-        {photoUrl && <img src={photoUrl} />}
-        <input className="uplord-button" type="file" accept="image/*" onChange={(e) => handleImage(e)} />
-        <br />
-        <p>your name</p>
-        <input className="name-input" type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        <button className="finish-button" onClick={onSubmit}>変更を適応する</button>
-      </div>
+      <h2>My profile</h2>
+      <p>your photo</p>
+      {photoUrl && <img src={photoUrl} />}
+      <input className="uplord-button" type="file" accept="image/*" onChange={(e) => handleImage(e)} />
+      <br />
+      <p>your name</p>
+      <input className="name-input" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      <button className="finish-button" onClick={onSubmit}>変更を適応する</button>
     </StyledComponent >
   );
 }

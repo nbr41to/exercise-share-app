@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from "../../../Layout"
-import firebase from "../../../../firebase"
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from "../../Layout"
+import firebase from "../../../firebase"
 import StyledComponent from "./Contact.styled"
 
-function NewPost(props) {
+function NewPost() {
   const [user] = useContext(AuthContext);
   const [message, setMessage] = useState("")
+  const history = useHistory()
 
 
   const onSubmit = () => {
@@ -21,6 +23,7 @@ function NewPost(props) {
     firebase.firestore().collection("form").add(
       {
         user_id: user.id,
+        user_name: user.name,
         time: nowTime,
         message: message
       }
@@ -28,23 +31,18 @@ function NewPost(props) {
       .then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
         alert("運営に問い合わせました。貴重なご意見ありがとうございます！")
-        props.closed(false)
+        history.push("/")
       })
       .catch(function (error) {
-        console.error("Error adding document: ", error);
+        alert(error)
       });
   }
   return (
     <StyledComponent>
-      <div className="modal_box">
-        <button className="close-button" onClick={() => { props.closed(false) }}>×</button>
-        <div className="form">
-          <h2>お問い合わせ</h2>
-          <p>ご利用にあたって、不具合・ご意見・ご感想などありましたら、お気軽にお申し付けください。</p>
-          <textarea onChange={(e) => setMessage(e.target.value)} ></textarea>
-          <button className="submit" onClick={onSubmit}>送信</button >
-        </div>
-      </div>
+      <h2>お問い合わせ</h2>
+      <p>ご利用にあたって、不具合・ご意見・ご感想などありましたら、お気軽にお申し付けください。</p>
+      <textarea onChange={(e) => setMessage(e.target.value)} ></textarea>
+      <button className="submit" onClick={onSubmit}>送信</button >
     </StyledComponent >
   );
 }

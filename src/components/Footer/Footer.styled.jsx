@@ -5,8 +5,8 @@ export const StyledComponents = styled.footer`
     background-color: limegreen;
     color: white;
     padding: 1rem 2rem;
+    margin-bottom: 55px;
     text-align: center;
-
     position: relative;
     bottom: 0;
     small {

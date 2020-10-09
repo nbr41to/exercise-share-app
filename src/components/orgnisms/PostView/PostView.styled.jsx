@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 
 const StyledPostView = styled.div`
-    p {
+    .user-score {
+        background-color: #000;
+        color: white;
         font-size: 1.6rem;
         font-weight: bold;
         padding: 1rem;
@@ -9,11 +11,6 @@ const StyledPostView = styled.div`
         span {
             padding: 0 2.2rem;
         }
-    }
-    .posts-ttl {
-        font-size: 1.8rem;
-        font-weight: bold;
-        padding: 0 1rem
     }
 
 `

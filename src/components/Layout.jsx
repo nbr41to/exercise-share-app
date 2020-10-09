@@ -4,6 +4,7 @@ import { GlobalStyle } from "../GlobalStyle"
 import Header from "./Header"
 import Top from "./pages/Top"
 import Footer from "./Footer"
+import Menubar from "./Menubar"
 
 import firebase from "../firebase";
 
@@ -43,6 +44,7 @@ const Layout = ({ children }) => {
         user ?
           <>
             {children}
+            <Menubar />
           </>
           :
           <>
