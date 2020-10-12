@@ -8,10 +8,13 @@ const StyledComponent = styled.div`
     }
     h2 {
         font-size: 1.6rem;
-        padding: 2rem 0 1rem;
+        padding: 12px;
     }
     p, li {
         font-size: 1.6rem;
+    }
+    hr {
+        margin-top: 16px;
     }
 `
 
