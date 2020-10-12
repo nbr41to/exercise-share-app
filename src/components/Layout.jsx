@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { GlobalStyle } from "../GlobalStyle"
 // import { AuthProvider, AuthContext } from "../Auth";
+import { useHistory } from "react-router-dom"
 import Header from "./Header"
 import Top from "./pages/Top"
 import Footer from "./Footer"
 import Menubar from "./Menubar"
+import FloatButton from "./atoms/FloatButton"
+import CreateIcon from '@material-ui/icons/Create';
 
 import firebase from "../firebase";
 
@@ -12,6 +15,7 @@ export const AuthContext = React.createContext([null, () => { }]);
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState(null)
+  const history = useHistory()
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -44,6 +48,11 @@ const Layout = ({ children }) => {
         user ?
           <>
             {children}
+            <FloatButton
+              value={<CreateIcon />}
+              color="orange"
+              onClick={() => history.push("/new-post")}
+            />
             <Menubar />
           </>
           :

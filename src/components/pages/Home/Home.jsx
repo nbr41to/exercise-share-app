@@ -24,7 +24,7 @@ function Home() {
       <h1 className="top-msg">今日も楽しい選択をしよう！</h1>
       <p className="user-info">{user.name}でログイン中...</p>
       <PostView />
-    </StyledComponent >
+    </StyledComponent>
   );
 }
 

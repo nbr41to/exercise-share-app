@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledComponent = styled.div`
-    padding: 12px;padding: 12px;
+    padding: 12px;
     h2 {
         font-size: 1.8rem;
         font-weight: bold;

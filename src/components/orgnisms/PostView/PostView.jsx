@@ -7,20 +7,12 @@ import StylePostView from "./PostView.styled"
 
 const PostView = () => {
     const [user] = useContext(AuthContext)
-    const [users, setUsers] = useState()
     const [posts, setPosts] = useState([])
     const [totalPosts, setTotalPosts] = useState()
     const [totalNice, setTotalNice] = useState()
 
     useEffect(() => {
-        firebase.firestore().collection("user")
-            .onSnapshot((snapshot) => {
-                let getUsers = snapshot.docs.map((doc) => {
-                    return doc.data();
-                });
-                setUsers(getUsers)
-            });
-        // ソートして20個だけ取得
+        // timeでソートして20個だけ取得
         firebase.firestore().collection("posts").orderBy("time", "desc").limit(20)
             .onSnapshot((snapshot) => {
                 let getPosts = snapshot.docs.map((doc) => {
@@ -59,7 +51,7 @@ const PostView = () => {
                         if (a.time > b.time) return -1;
                         if (a.time < b.time) return 1;
                         return 0;
-                    }).map((post, index) => < Post users={users} post={post} index={index} key={index} />)
+                    }).map((post, index) => < Post postData={post} index={index} key={index} />)
                 }
             </div>
         </StylePostView>

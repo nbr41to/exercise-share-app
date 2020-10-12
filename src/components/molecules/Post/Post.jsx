@@ -1,11 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import firebase from '../../../firebase'
 import StyledComponent from "./Post.styled"
 import { AuthContext } from "../../Layout"
 
 
-export default function Post({ users, post, index }) {
+export default function Post({ postData, index }) {
     const [user] = useContext(AuthContext);
+    const [post, setPost] = useState(postData)
+
+    // console.log(postData.user_ref)
+    useEffect(() => {
+        if (postData.user_ref) {
+            postData.user_ref.get().then((doc) => {
+                const postUser = {
+                    user_name: doc.data().name,
+                    photo_url: doc.data().photo_url,
+                }
+                return postUser
+            }).then((postUser) => setPost({
+                ...post,
+                user_name: postUser.user_name,
+                photo_url: postUser.photo_url,
+            }))
+        }
+    }, [])
 
     const niceToggle = (id) => {
         const niceRef = firebase.firestore().collection("posts").doc(id)
@@ -36,14 +54,11 @@ export default function Post({ users, post, index }) {
         }
     }
 
-
-
-    const thisUser = users.find(user => user.id === post.user_id)
     return (
         <StyledComponent key={index} >
             <div className="user-info">
-                <img src={thisUser.photo_url} />
-                <p>{thisUser.name}</p>
+                <img src={post?.photo_url} />
+                <p>{post?.user_name}</p>
             </div>
             <div className="post-info">
                 <ul>
