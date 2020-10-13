@@ -1,29 +1,58 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
+import firebase from '../../../firebase'
+import { useRecoilState } from 'recoil';
+import { userState, postsState } from '../../../recoil/atoms.js'
+
 import StyledComponent from "./Home.styled"
 
-import Contact from "../Contact"
 import PostView from "../../orgnisms/PostView"
 import { AuthContext } from "../../Layout"
 
-import CreateIcon from '@material-ui/icons/Create';
-import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
-import PersonIcon from '@material-ui/icons/Person';
-import MailIcon from '@material-ui/icons/Mail';
 
 function Home() {
-  const [openNew, setOpenNew] = useState(false);
-  const [openExercise, setOpenExercise] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
-  const [openContact, setOpenContact] = useState(false);
-  const [user] = useContext(AuthContext)
+  const [user, setUser] = useRecoilState(userState)
+  const [posts, setPosts] = useRecoilState(postsState)
+  const [totalPosts, setTotalPosts] = useState()
+  const [totalNice, setTotalNice] = useState()
+  // const [user] = useContext(AuthContext)
+  console.log(user)
 
-  // console.log(user)
+  useEffect(() => {
+    // timeでソートして20個だけ取得
+    // firebase.firestore().collection("posts").orderBy("time", "desc").limit(20)
+    //     .onSnapshot((snapshot) => {
+    //         let getPosts = snapshot.docs.map((doc) => {
+    //             const getPost = doc.data();
+    //             getPost.post_id = doc.id
+    //             return getPost
+    //         });
+    //         setPosts(getPosts)
+    //     });
+
+    firebase.firestore().collection("posts")
+      .onSnapshot((snapshot) => {
+        let posts = 0
+        let nice = 0
+        snapshot.docs.map((doc) => {
+          if (doc.data().nice.includes(user.id)) {
+            nice++
+          }
+          if (doc.data().user_id === user.id) {
+            posts++
+          }
+        });
+        setTotalPosts(posts)
+        setTotalNice(nice)
+      });
+  }, [])
+
+  // console.log(posts)
   return (
     <StyledComponent>
       <h1 className="top-msg">今日も楽しい選択をしよう！</h1>
       <p className="user-info">{user.name}でログイン中...</p>
-      <PostView />
+      <p className="user-score">投稿数：{totalPosts}<span>｜</span>NICE POINT：{totalNice}</p>
+      <PostView posts={posts} />
     </StyledComponent>
   );
 }

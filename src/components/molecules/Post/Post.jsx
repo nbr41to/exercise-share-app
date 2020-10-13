@@ -10,19 +10,19 @@ export default function Post({ postData, index }) {
 
     // console.log(postData.user_ref)
     useEffect(() => {
-        if (postData.user_ref) {
-            postData.user_ref.get().then((doc) => {
-                const postUser = {
-                    user_name: doc.data().name,
-                    photo_url: doc.data().photo_url,
-                }
-                return postUser
-            }).then((postUser) => setPost({
-                ...post,
-                user_name: postUser.user_name,
-                photo_url: postUser.photo_url,
-            }))
-        }
+        // if (postData.user_ref) {
+        //     postData.user_ref.get().then((doc) => {
+        //         const postUser = {
+        //             user_name: doc.data().name,
+        //             photo_url: doc.data().photo_url,
+        //         }
+        //         return postUser
+        //     }).then((postUser) => setPost({
+        //         ...post,
+        //         user_name: postUser.user_name,
+        //         photo_url: postUser.photo_url,
+        //     }))
+        // }
     }, [])
 
     const niceToggle = (id) => {

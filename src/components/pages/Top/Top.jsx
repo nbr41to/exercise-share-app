@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 import firebase from '../../../firebase'
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../recoil/atoms.js'
 import LoginModal from "../../orgnisms/LoginModal"
 import SignupModal from "../../orgnisms/SignupModal"
 import Button from "../../atoms/Button"
 import top_view from "../../../images/top-catch.jpg"
 import StyledComponent from "./Top.styled"
 
-const Top = ({ user, setUser }) => {
+const Top = () => {
     const [openLogin, setOpenLogin] = useState(false)
     const [openSignup, setOpenSignup] = useState(false)
+
+    const [user, setUser] = useRecoilState(userState)
 
     const toriaezu = () => {
         firebase.auth().signInAnonymously()

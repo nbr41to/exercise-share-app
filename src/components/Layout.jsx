@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { GlobalStyle } from "../GlobalStyle"
-// import { AuthProvider, AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom"
+import { useRecoilState } from 'recoil';
+import { userState, postsState } from '../recoil/atoms.js'
 import Header from "./Header"
 import Top from "./pages/Top"
 import Footer from "./Footer"
@@ -14,7 +15,9 @@ import firebase from "../firebase";
 export const AuthContext = React.createContext([null, () => { }]);
 
 const Layout = ({ children }) => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useRecoilState(userState)
+  const [posts, setPosts] = useRecoilState(postsState)
+  // const [user, setUser] = useState(null)
   const history = useHistory()
 
   useEffect(() => {
@@ -27,6 +30,19 @@ const Layout = ({ children }) => {
     })
   }, [])
 
+  useEffect(() => {
+    // timeでソートして20個だけ取得
+    // firebase.firestore().collection("posts").orderBy("time", "desc").limit(20)
+    //   .onSnapshot((snapshot) => {
+    //     let getPosts = snapshot.docs.map((doc) => {
+    //       const getPost = doc.data();
+    //       getPost.post_id = doc.id
+    //       return getPost
+    //     });
+    //     setPosts(getPosts)
+    //   });
+  }, [])
+
   const signout = () => {
     firebase.auth().signOut().then(() => {
       setUser(null)
@@ -34,7 +50,6 @@ const Layout = ({ children }) => {
       alert(error)
     });
   }
-
 
   // console.log(user)
   // console.log(firebase.auth().currentUser)
