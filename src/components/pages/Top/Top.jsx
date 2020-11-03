@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import firebase from '../../../firebase'
+import firebase from 'firebase'
 import { useRecoilState } from 'recoil';
-import { userState } from '../../../recoil/atoms.js'
+import { userState } from 'recoil/atoms.js'
 import LoginModal from "../../orgnisms/LoginModal"
 import SignupModal from "../../orgnisms/SignupModal"
 import Button from "../../atoms/Button"
@@ -17,7 +17,7 @@ const Top = () => {
     const toriaezu = () => {
         firebase.auth().signInAnonymously()
             .then(() => {
-                firebase.firestore().collection("user").doc("testestest").get().then((doc) => {
+                firebase.firestore().collection("user").doc("testestest").onSnapshot((doc) => {
                     setUser(doc.data())
                 })
             })

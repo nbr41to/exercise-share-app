@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 // type User = {
 //     id?: string,
@@ -10,7 +10,6 @@ import { atom } from 'recoil';
 // }
 // const initialUser: User[] = []
 
-
 export const userState = atom({
     key: 'userState',
     default: null,
@@ -18,5 +17,14 @@ export const userState = atom({
 
 export const postsState = atom({
     key: 'postsState',
-    default: {}
+    default: []
 })
+
+// export const sortedPostsState = selector({
+//     key: 'sortedPostsState',
+//     get: ({ get }) => get(postsState).sort((a, b) => {
+//         if (a.time > b.time) return -1;
+//         if (a.time < b.time) return 1;
+//         return 0;
+//     })
+// })

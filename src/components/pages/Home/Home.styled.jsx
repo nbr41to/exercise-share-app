@@ -18,6 +18,7 @@ const StyledComponent = styled.div`
         font-size: 1.6rem;
         font-weight: bold;
         padding: 1rem;
+        margin: 12px 0;
         text-align: center;
         span {
             padding: 0 2.2rem;

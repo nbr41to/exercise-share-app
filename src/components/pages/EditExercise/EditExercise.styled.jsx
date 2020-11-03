@@ -20,19 +20,21 @@ const StyledComponent = styled.div`
             li {
                 width: auto;
                 font-size: 1.6rem;
-                padding: 0.5rem;
+                font-weight: bold;
+                padding: 0.2rem;
                 padding-left: 2rem;
                 margin: 0.8rem;
-                background-color: #ccc;
+                color: white;
+                background-color: skyblue;
                 border-radius: 999rem;
                 box-shadow: 1px 1px 1px 0 #000;
                 button {
                     color: white;
-                    font-size: 2.2rem;
-                    background-color: black;
                     border-radius: 100%;
-                    padding: 0.5rem 1rem;
                     margin-left: 1rem;
+                    svg {
+                    font-size: 3.6rem;
+                    }
                 }
             }
         }

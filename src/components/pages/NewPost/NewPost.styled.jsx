@@ -39,6 +39,22 @@ const StyledComponent = styled.div`
                 }
             }
         }
+        input {
+            border: 1px solid #444;
+            border-radius: 0.5rem;
+            font-size: 1.6rem;
+            padding: 0.5rem;
+            margin: 1rem 0.5rem;
+        }
+        .add-button {
+            /* display: block; */
+            background-color: #ccc;
+            font-size: 1.2rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
     }
     
     .new-post {

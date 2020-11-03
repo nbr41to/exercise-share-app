@@ -1,49 +1,38 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from "../../Layout"
 import firebase from "../../../firebase"
 import StyledComponent from "./NewPost.styled"
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms.js'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 function NewPost() {
-  const [user] = useContext(AuthContext);
-  const [myExercise, setMyExercise] = useState([])
+  const user = useRecoilValue(userState);
   const [comment, setComment] = useState("")
   const [postExercises, setPostExercises] = useState([])
+  const [newMenu, setNewMenu] = useState("")
   const history = useHistory()
 
-  useEffect(() => {
-    let getExercises = []
-    // ユーザのエクササイズを取得
-    const docRef = firebase.firestore().collection("user").doc(user.id)
-    docRef.get().then(doc => {
-      if (doc.exists) {
-        const data = doc.data()
-        getExercises = data.exercises
-      } else {
-        console.log("No such document!");
-        // ユーザのDocがなかった場合新規作成する
-        firebase.firestore().collection("user").doc(user.id).set({
-          exercises: [],
+  const exerciseAdd = (e) => {
+    if (newMenu) {
+      firebase.firestore().collection("user").doc(user.id).update({
+        exercises: firebase.firestore.FieldValue.arrayUnion(newMenu)
+      })
+        .then(() => {
+          console.log("Document written success");
         })
-          .then(() => {
-            console.log("create new doc");
-          })
-          .catch((error) => {
-            console.error("Error: ", error);
-          });
-      }
-      setMyExercise(getExercises)
-    }).catch(function (error) {
-      console.log("Error getting document:", error);
-    })
-  }, [])
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
+      setNewMenu("")
+    }
+  }
 
   const exerciseSelect = (index) => {
     // const key = index
     setPostExercises([
       ...postExercises,
-      myExercise[index]
+      user.exercises[index]
     ])
   }
 
@@ -82,7 +71,7 @@ function NewPost() {
         <h2>My exercise</h2>
         <p>下から投稿するエクササイズを追加</p>
         <ul>
-          {myExercise.map((menu, index) =>
+          {user.exercises.map((menu, index) =>
             <li key={index}>
               {menu}
               <button onClick={() => { exerciseSelect(index) }}>
@@ -91,6 +80,8 @@ function NewPost() {
             </li>
           )}
         </ul>
+        <input type="text" value={newMenu} placeholder="新規Exerciseの追加" onChange={(e) => setNewMenu(e.target.value)} />
+        <button className="add-button" onClick={exerciseAdd}> 追加</button>
       </div>
       <div className="new-post">
         <h2>New post</h2>

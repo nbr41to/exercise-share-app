@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import firebase from "../../../firebase"
+import firebase from "firebase"
 import { useRecoilState } from 'recoil';
-import { userState, postsState } from '../../../recoil/atoms'
+import { userState } from 'recoil/atoms'
 import StyledLoginModal from "./LoginModal.styled"
 import InputArea from "../../molecules/InputArea"
 import Button from "../../atoms/Button"
@@ -11,7 +11,6 @@ const LoginModal = ({ setOpenLogin }) => {
     const [password, setPassword] = useState("")
 
     const [user, setUser] = useRecoilState(userState)
-    const [posts, setPosts] = useRecoilState(postsState)
 
     const onSubmit = (e) => {
         e.preventDefault()

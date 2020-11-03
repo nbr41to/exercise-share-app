@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import firebase from "../../../firebase"
-import { AuthContext } from "../../Layout"
 import StyledComponent from "./EditProfile.styled"
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms.js'
 
 
-const EditProfile = (props) => {
-  const [user] = useContext(AuthContext);
+const EditProfile = () => {
+  const user = useRecoilValue(userState)
   const [name, setName] = useState(user.name)
   const [photo, setPhoto] = useState()
   const [photoUrl, setPhotoUrl] = useState(user.photo_url) // 表示用

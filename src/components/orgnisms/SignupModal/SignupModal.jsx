@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react"
-import firebase from "../../../firebase"
+import firebase from "firebase"
 import StyledSignupModal from "./SignupModal.styled"
+import { useRecoilState } from 'recoil';
+import { userState } from 'recoil/atoms.js'
 import InputArea from "../../molecules/InputArea"
 import Button from "../../atoms/Button"
-import { AuthContext } from "../../Layout"
 
 const SignupModal = ({ setOpenSignup }) => {
-    const [user, setUser] = useContext(AuthContext)
+    const [user, setUser] = useRecoilState(userState)
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -18,7 +19,6 @@ const SignupModal = ({ setOpenSignup }) => {
 
 
     // await functions
-
     const getDefaultPhotoUrl = () => {
         return firebase.storage().ref().child("default/user_default.png").getDownloadURL()
     }
@@ -35,18 +35,20 @@ const SignupModal = ({ setOpenSignup }) => {
                                 id: user.uid,
                                 name: name,
                                 photo_url: "https://firebasestorage.googleapis.com/v0/b/share-exercise-app.appspot.com/o/default%2Fuser_default.png?alt=media&token=febc3e55-2129-4132-a4d0-d1d885f34a6e",
-                                photo_name: "",
+                                photo_name: "default",
                                 exercises: [],
                                 nice_total: 0,
+                                post_total: 0,
                             })
 
                             firebase.firestore().collection("user").doc(user.uid).set({
                                 id: user.uid,
                                 name: name,
                                 photo_url: "https://firebasestorage.googleapis.com/v0/b/share-exercise-app.appspot.com/o/default%2Fuser_default.png?alt=media&token=febc3e55-2129-4132-a4d0-d1d885f34a6e",
-                                photo_name: "",
+                                photo_name: "default",
                                 exercises: [],
                                 nice_total: 0,
+                                post_total: 0,
                             }).then(() => {
                                 alert('アカウント新規作成しました！');
                             }).catch((error) => {

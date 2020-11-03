@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import AuthProvider, { AuthContext } from './Auth'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { RecoilRoot, useRecoilState } from 'recoil';
-import { userState } from "./recoil/atoms.js"
+import FirestoreToRecoil from 'recoil/FirestoreToRecoil'
 import "./reset.css"
 import Home from "./components/pages/Home"
 import Info from "./components/pages/Info"
@@ -13,12 +13,12 @@ import Contact from "./components/pages/Contact"
 import Layout from "./components/Layout"
 
 
-
 const App = () => {
   return (
     <BrowserRouter>
       <RecoilRoot>
         <Layout>
+          <FirestoreToRecoil />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/new-post" component={NewPost} />

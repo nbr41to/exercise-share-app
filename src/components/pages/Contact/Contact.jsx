@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from "../../Layout"
-import firebase from "../../../firebase"
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms.js'
+import firebase from "firebase"
 import StyledComponent from "./Contact.styled"
 
 function NewPost() {
-  const [user] = useContext(AuthContext);
+  const user = useRecoilValue(userState)
   const [message, setMessage] = useState("")
   const history = useHistory()
 

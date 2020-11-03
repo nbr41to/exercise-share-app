@@ -1,50 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from "../../Layout"
 import firebase from "../../../firebase"
 import StyledComponent from "./EditExercise.styled"
-
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms.js'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 function EditExercise() {
-  const [user] = useContext(AuthContext);
-  const [myExercise, setMyExercise] = useState([])
+  const user = useRecoilValue(userState);
   const [newMenu, setNewMenu] = useState("")
-
-  useEffect(() => {
-    let getExercises = []
-    // ユーザのエクササイズを取得
-    const docRef = firebase.firestore().collection("user").doc(user.id)
-    docRef.get().then(doc => {
-      if (doc.exists) {
-        const data = doc.data()
-        // console.log("Document data:", data.exercises);
-        getExercises = data.exercises
-      } else {
-        console.log("No such document!");
-        // ユーザのDocがなかった場合新規作成する
-        firebase.firestore().collection("user").doc(user.id).set({
-          exercises: [],
-        })
-          .then(() => {
-            console.log("create new doc");
-          })
-          .catch((error) => {
-            console.error("Error: ", error);
-          });
-      }
-      setMyExercise(getExercises)
-    }).catch(function (error) {
-      console.log("Error getting document:", error);
-    })
-  }, [])
-
 
   const exerciseAdd = (e) => {
     if (newMenu) {
       firebase.firestore().collection("user").doc(user.id).update({
-        exercises: [
-          ...myExercise,
-          newMenu
-        ],
+        exercises: firebase.firestore.FieldValue.arrayUnion(newMenu)
       })
         .then(() => {
           console.log("Document written success");
@@ -52,23 +20,17 @@ function EditExercise() {
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
-      setMyExercise([
-        ...myExercise,
-        newMenu
-      ])
       setNewMenu("")
     }
   }
 
   const exerciseDelete = (index) => {
     const key = index
-    const newExercise = myExercise.filter((_, index) => index !== key)
     firebase.firestore().collection("user").doc(user.id).update({
-      exercises: newExercise,
+      exercises: firebase.firestore.FieldValue.arrayRemove(user.exercises[index])
     })
       .then(() => {
         console.log("Document deleted success");
-        setMyExercise(newExercise)
       })
       .catch((error) => {
         console.error("Error dalete document: ", error);
@@ -80,8 +42,13 @@ function EditExercise() {
       <h2>My exercise edit</h2>
       <div className="exercises">
         <ul>
-          {myExercise.map((menu, index) =>
-            <li key={index}>{menu}<button onClick={() => exerciseDelete(index)}>×</button></li>
+          {user.exercises.map((menu, index) =>
+            <li key={index}>
+              {menu}
+              <button onClick={() => exerciseDelete(index)}>
+                <HighlightOffIcon />
+              </button>
+            </li>
           )}
         </ul>
         <input type="text" value={newMenu} onChange={(e) => setNewMenu(e.target.value)} />
